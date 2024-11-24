@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(10)->create();
-        Position::factory(5)->create();
-        //Room::factory(10)->create();
+        Position::factory(4)->create();
+        Room::factory(5)->create();
         //UserRoomEntry::factory(10)->create();
 
 
