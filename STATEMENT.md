@@ -1,7 +1,7 @@
 # Nyilatkozat
 
-Hallgató neve: <Cortea Levente>
-Hallgató Neptun kódja: <BHZI28>
+Hallgató neve: Cortea Levente
+Hallgató Neptun kódja: BHZI28
 
 Ezt a megoldást a fent nevezett hallgató küldte be és készítette a Szerveroldali webprogramozás tárgy Laravel beadandó számonkérésére.
 
