@@ -18,4 +18,8 @@ class Position extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function room(){
+        return $this->belongsToMany(Room::class);
+    }
 }
