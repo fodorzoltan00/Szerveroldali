@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
 
 class UserRoomEntry extends Model
 {
@@ -19,6 +20,21 @@ class UserRoomEntry extends Model
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Event listener for the 'creating' event
+        static::creating(function ($userRoomEntry) {
+            $hasAccess = DB::table('position_room')
+                ->where('position_id', $userRoomEntry->user->position_id)
+                ->where('room_id', $userRoomEntry->room_id)
+                ->exists();
+
+            $userRoomEntry->successful = $hasAccess;
+        });
     }
 
 }
