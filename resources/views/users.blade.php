@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel Beadandó - Home</title>
+    <title>Laravel Beadandó - Users</title>
     <!-- Add Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Add Custom CSS for sticky footer -->
@@ -68,16 +68,35 @@
 
 <!-- Main Section -->
 <main class="container">
-    <div class="row text-center">
-        <div class="col-md-6">
-            <h4>Number of workers in the system</h4>
-            <h2><strong>{{ $userCount }}</strong></h2>
-        </div>
-        <div class="col-md-6">
-            <h3>Number of rooms in the system</h3>
-            <h2><strong>{{ $roomCount }}</strong></h2>
-        </div>
-    </div>
+            <h1 class="ps-3">Users</h1>
+            <hr />
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="text-center table-light">
+                    <tr>
+                        <th style="width: 35%">Name</th>
+                        <th style="width: 35%">Position</th>
+                        <th style="width: 30%">Tel. number</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    @foreach ($Users as $user)
+                        <tr class="table">
+                            <td>
+                                <span>{{$user->name}}</span>
+                            </td>
+                            <td>
+                                <div>{{$user->position->name}}</div>
+                            </td>
+                            <td>
+                                <div>{{$user->phone_number}}</div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                {{$Users->links()}}
+            </div>
 </main>
 
 <!-- Footer Section -->
