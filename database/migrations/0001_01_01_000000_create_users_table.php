@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->boolean('admin')->default(false);
             $table->string('phone_number');
             $table->string('card_number');
+            $table->foreignId('position_id')->references('id')->on('positions')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
