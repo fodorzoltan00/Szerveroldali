@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('user_room_entries', function (Blueprint $table) {
             $table->id();
             $table->boolean('successful');
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->timestamps();
         });
     }
