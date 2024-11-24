@@ -1,8 +1,12 @@
 <?php
 
-namespace database\seeders;
+namespace Database\Seeders;
 
-use app\Models\User;
+use App\Models\User;
+use App\Models\Position;
+use App\Models\Room;
+use App\Models\UserRoomEntry;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +17,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+
+
+
+        $Positions = Position::factory(4)->create();
+        $Rooms = Room::factory(5)->create();
+
+        $Users = collect();
+        for($i = 0; $i < 10 ; $i++){
+            $U = User::factory()->create([
+                'position_id' => $Positions->random()->id,
+            ]);
+            $Users->push($U);
+        }
 
         User::factory()->create([
+            'email' => 'admin@szerveroldali.hu',
+            'password' => password_hash('adminpwd', PASSWORD_BCRYPT),
+            'admin' => true,
+            'position_id' => 1
+        ]);
+
+        foreach($Rooms as $Room){
+                $Room->positions()->attach($Positions->random(rand(0,4)));
+        }
+
+        $UserRoomEntry = collect();
+
+        for($i = 0; $i < rand(20,40) ; $i++){
+            $entry = UserRoomEntry::factory(1)->create([
+                'room_id' => $Rooms->random()->id,
+                'user_id' => $Users->random()->id,
+            ]);
+            $UserRoomEntry->push($entry);
+        }
+
+
+
+        //UserRoomEntry::factory(10)->create();
+
+
+        /*User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-        ]);
+        ]);*/
     }
 }

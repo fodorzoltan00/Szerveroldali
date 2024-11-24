@@ -1,5 +1,5 @@
-[ ] Adatbázis és modellek (3 pont)
-[ ] Seeder (3 pont)
+[x] Adatbázis és modellek (3 pont)
+[x] Seeder (3 pont)
 [ ] Főoldal (1 pont)
 [ ] Dolgozók listázása (2 pont)
 [ ] Új dolgozó létrehozása (3 pont)

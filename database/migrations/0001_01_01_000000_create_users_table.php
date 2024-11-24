@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('card_number');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreignId('position_id')->nullable()->references('id')->on('positions')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
