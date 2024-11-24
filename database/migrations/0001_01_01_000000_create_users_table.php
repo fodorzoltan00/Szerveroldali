@@ -21,9 +21,9 @@ return new class extends Migration {
             $table->boolean('admin')->default(false);
             $table->string('phone_number');
             $table->string('card_number');
-            $table->foreignId('position_id')->references('id')->on('positions')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreignId('position_id')->nullable()->references('id')->on('positions')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
