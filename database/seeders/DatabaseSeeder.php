@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $Users = collect();
         for($i = 0; $i < 10 ; $i++){
-            $U = User::factory(1)->create([
+            $U = User::factory()->create([
                 'position_id' => $Positions->random()->id,
             ]);
             $Users->push($U);
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
         $UserRoomEntry = collect();
 
-        for($i = 0; $i < rand(30,60) ; $i++){
+        for($i = 0; $i < rand(10,20) ; $i++){
             $entry = UserRoomEntry::factory(1)->create([
                 'room_id' => $Rooms->random()->id,
                 'user_id' => $Users->random()->id,

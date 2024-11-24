@@ -26,7 +26,6 @@ class UserRoomEntry extends Model
     {
         parent::boot();
 
-        // Event listener for the 'creating' event
         static::creating(function ($userRoomEntry) {
             $hasAccess = DB::table('position_room')
                 ->where('position_id', $userRoomEntry->user->position_id)
