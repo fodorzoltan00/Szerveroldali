@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ]);
             $Users->push($U);
         }
+
         User::factory()->create([
             'email' => 'admin@szerveroldali.hu',
             'password' => password_hash('adminpwd', PASSWORD_BCRYPT),
@@ -39,6 +40,16 @@ class DatabaseSeeder extends Seeder
 
         foreach($Rooms as $Room){
                 $Room->positions()->attach($Positions->random(rand(0,4)));
+        }
+
+        $UserRoomEntry = collect();
+
+        for($i = 0; $i < rand(30,60) ; $i++){
+            $entry = UserRoomEntry::factory(1)->create([
+                'room_id' => $Rooms->random()->id,
+                'user_id' => $Users->random()->id,
+            ]);
+            $UserRoomEntry->push($entry);
         }
 
 
