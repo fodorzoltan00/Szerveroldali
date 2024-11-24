@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
         $UserRoomEntry = collect();
 
-        for($i = 0; $i < rand(10,20) ; $i++){
+        for($i = 0; $i < rand(20,40) ; $i++){
             $entry = UserRoomEntry::factory(1)->create([
                 'room_id' => $Rooms->random()->id,
                 'user_id' => $Users->random()->id,
