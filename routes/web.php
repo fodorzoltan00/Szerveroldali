@@ -10,7 +10,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 //Route::get('/room',[RoomController::class,'index'])->name('room');
 //Route::get('/position',[PositionController::class,'index'])->name('position');
 
-Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+});
+
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
 Route::middleware(['auth'])->group(function () {

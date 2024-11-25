@@ -67,36 +67,44 @@
 </header>
 
 <!-- Main Section -->
-<main class="container">
-            <h1 class="ps-3">Users</h1>
-            <hr />
-            <div class="table-responsive">
-                <table class="table align-middle table-hover">
-                    <thead class="text-center table-light">
-                    <tr>
-                        <th style="width: 35%">Name</th>
-                        <th style="width: 35%">Position</th>
-                        <th style="width: 30%">Tel. number</th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    @foreach ($Users as $user)
-                        <tr class="table">
-                            <td>
-                                <span>{{$user->name}}</span>
-                            </td>
-                            <td>
-                                <div>{{$user->position->name}}</div>
-                            </td>
-                            <td>
-                                <div>{{$user->phone_number}}</div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                {{$Users->links()}}
-            </div>
+    <div class="container">
+        <h1>Users</h1>
+        <table class="table table-striped mt-3">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($users as $user)
+                <tr class="table">
+                    <td>
+                        <span>{{ $user->name }}</span>
+                    </td>
+                    <td>
+                        <div>{{ $user->position->name }}</div>
+                    </td>
+                    <td>
+                        <div>{{ $user->phone_number }}</div>
+                    </td>
+                    <td>
+                        <!-- Add action buttons as needed -->
+                        <!-- Example: Edit User -->
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 </main>
 
 <!-- Footer Section -->

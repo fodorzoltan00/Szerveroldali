@@ -9,7 +9,11 @@
                 <label for="name">Position Name</label>
                 <input type="text" name="name" id="name" class="form-control" required>
             </div>
-            <!-- További mezők hozzáadása szükség szerint -->
+            @if ($errors->has('name'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('name') }}
+                </div>
+            @endif
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>

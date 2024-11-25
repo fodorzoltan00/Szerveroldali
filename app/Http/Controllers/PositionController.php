@@ -26,11 +26,15 @@ class PositionController extends Controller
 
     public function store(Request $request)
     {
-        if (!Gate::allows('manage-positions')) {
-            abort(403);
-        }
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-        // Validáció és adattárolás
+        Position::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('positions.index')->with('success', 'Position created successfully.');
     }
 
     public function edit(Position $position)
