@@ -32,13 +32,13 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Workers</a>
+                            <a class="nav-link" href="{{ route('users.index') }}">Workers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Positions</a>
+                            <a class="nav-link" href="{{ route('positions.index') }}">Positions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Rooms</a>
+                            <a class="nav-link" href="{{ route('rooms.index') }}">Rooms</a>
                         </li>
                         @endauth
                     </ul>
