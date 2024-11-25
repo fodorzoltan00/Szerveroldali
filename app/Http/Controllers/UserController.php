@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Position;
 
 class UserController extends Controller
 {
@@ -13,6 +14,33 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
+    public function create()
+    {
+        $positions = Position::all();
+        return view('users.create', compact('positions'));
+    }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'position_id' => 'nullable|exists:positions,id',
+            'phone_number' => 'nullable|string|max:255',
+            'card_number' => 'nullable|string|max:255',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'position_id' => $request->position_id,
+            'phone_number' => $request->phone_number,
+            'card_number' => $request->card_number,
+        ]);
+
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
+    }
     public function show(User $user)
     {
         // A felhasználó és a kapcsolódó pozíciójának betöltése azonosító alapján
