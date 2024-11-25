@@ -67,18 +67,53 @@
 </header>
 
 <!-- Main Section -->
-<main class="container">
-    <div class="row text-center">
-        <div class="col-md-6">
-            <h4>Number of workers in the system</h4>
-            <h2><strong>{{ $userCount }}</strong></h2>
-        </div>
-        <div class="col-md-6">
-            <h3>Number of rooms in the system</h3>
-            <h2><strong>{{ $roomCount }}</strong></h2>
+    <h1 class="ps-3">Rooms</h1>
+    <hr />
+    <div class="mt-4">
+        @can('manage-rooms')
+            <a class="btn btn-primary mb-4" href="{{ route('rooms.create') }}">Új szoba létrehozása</a>
+        @endcan
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                <tr>
+                    <th>Név</th>
+                    <th>Jogosult munkakörök</th>
+                    @can('manage-rooms')
+                        <th>Műveletek</th>
+                    @endcan
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($rooms as $room)
+                    <tr>
+                        <td>{{ $room->name }}</td>
+                        <td>
+                            <ul>
+                                @foreach($room->positions as $position)
+                                    <li>{{ $position->name }}</li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        @can('manage-rooms')
+                            <td>
+                                <a class="btn btn-secondary btn-sm" href="{{ route('rooms.edit', $room->id) }}">Szerkesztés</a>
+                                <form action="{{ route('rooms.destroy', $room->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
+                                </form>
+                                <a class="btn btn-info btn-sm" href="{{ route('rooms.show', $room->id) }}">Belépések</a>
+                            </td>
+                        @endcan
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            {{ $rooms->links() }}
         </div>
     </div>
-</main>
+</div>
 
 <!-- Footer Section -->
 <footer class="footer bg-light text-center py-3 mt-4">

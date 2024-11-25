@@ -27,11 +27,17 @@ class User extends Authenticatable
         'position_id',
     ];
 
+    public function isAdmin()
+    {
+        return $this->role === 'admin'; // Tegyük fel, hogy van egy 'role' oszlop a users táblában
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
+
     protected $hidden = [
         'password',
         'remember_token',
