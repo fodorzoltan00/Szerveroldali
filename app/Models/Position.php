@@ -16,10 +16,10 @@ class Position extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'position_id');
     }
 
-    public function room(){
+    public function rooms(){
         return $this->belongsToMany(Room::class);
     }
 }

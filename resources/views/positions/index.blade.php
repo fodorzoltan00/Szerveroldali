@@ -68,15 +68,45 @@
 
 <!-- Main Section -->
 <main class="container">
-    <div class="row text-center">
-        <div class="col-md-6">
-            <h4>Number of workers in the system</h4>
-            <h2><strong>{{ $userCount }}</strong></h2>
-        </div>
-        <div class="col-md-6">
-            <h3>Number of rooms in the system</h3>
-            <h2><strong>{{ $roomCount }}</strong></h2>
-        </div>
+    <div class="container">
+        <h1>Positions</h1>
+        @can('manage-positions')
+            <a href="{{ route('positions.create') }}" class="btn btn-primary">New Position</a>
+        @endcan
+        <table class="table table-striped mt-3">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>User Count</th>
+                <th>Rooms</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($positions as $position)
+                <tr>
+                    <td>{{ $position->name }}</td>
+                    <td>{{ $position->users_count }}</td>
+                    <td>
+                        @foreach ($position->rooms as $room)
+                            <span class="badge badge-info">{{ $room->name }}</span>
+                        @endforeach
+                    </td>
+                    <td>
+                        <a href="{{ route('positions.users', $position->id) }}" class="btn btn-info">View Users</a>
+                        @can('manage-positions')
+                            <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('positions.destroy', $position->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        @endcan
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 </main>
 
