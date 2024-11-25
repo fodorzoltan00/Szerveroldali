@@ -68,46 +68,57 @@
 
 <!-- Main Section -->
 <main class="container">
-    <div class="container">
-        <h1>Positions</h1>
-        @can('manage-positions')
-            <a href="{{ route('positions.create') }}" class="btn btn-primary">New Position</a>
-        @endcan
-        <table class="table table-striped mt-3">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>User Count</th>
-                <th>Rooms</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($positions as $position)
+    @section('content')
+        <div class="container">
+            <h1>Pozíciók</h1>
+
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (auth()->user()->admin)
+                <a href="{{ route('positions.create') }}" class="btn btn-primary mb-3">Új pozíció létrehozása</a>
+            @endif
+
+            <table class="table table-striped mt-3">
+                <thead>
                 <tr>
-                    <td>{{ $position->name }}</td>
-                    <td>{{ $position->users_count }}</td>
-                    <td>
-                        @foreach ($position->rooms as $room)
-                            <span class="badge badge-info">{{ $room->name }}</span>
-                        @endforeach
-                    </td>
-                    <td>
-                        <a href="{{ route('positions.users', $position->id) }}" class="btn btn-info">View Users</a>
-                        @can('manage-positions')
-                            <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('positions.destroy', $position->id) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        @endcan
-                    </td>
+                    <th>Név</th>
+                    <th>Felhasználók száma</th>
+                    <th>Szobák</th>
+                    @if (auth()->user()->admin)
+                        <th>Műveletek</th>
+                    @endif
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                @foreach ($positions as $position)
+                    <tr>
+                        <td>{{ $position->name }}</td>
+                        <td>{{ $position->users_count }}</td>
+                        <td>
+                            @foreach ($position->rooms as $room)
+                                <span class="badge badge-info">{{ $room->name }}</span>
+                            @endforeach
+                        </td>
+                        <td>
+                            <a href="{{ route('positions.users', $position->id) }}" class="btn btn-info">Felhasználók megtekintése</a>
+                            @if (auth()->user()->admin)
+                                <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-warning">Szerkesztés</a>
+                                <form action="{{ route('positions.destroy', $position->id) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Törlés</button>
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
 </main>
 
 <!-- Footer Section -->

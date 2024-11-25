@@ -24,16 +24,9 @@ Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show')
 Route::middleware('auth')->group(function () {
     // Szobák listázása
     Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
-    Route::get('/admin-test', function() {
-        if (auth()->user()->can('manage-rooms')) {
-            return 'X Can manage rooms';
-        } else {
-            return 'Y Cannot manage rooms';
-        }
-    });
 
     // Csak admin számára elérhető útvonalak
-    Route::middleware('can:manage-rooms')->group(function () {
+    Route::middleware(['auth'])->group(function () {
         Route::get('/rooms/create', [RoomController::class, 'create'])->name('rooms.create');
         Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
         Route::get('/rooms/{room}/edit', [RoomController::class, 'edit'])->name('rooms.edit');
@@ -45,19 +38,18 @@ Route::middleware('auth')->group(function () {
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('rooms', RoomController::class);
-
+Route::middleware('auth')->group(function () {
     Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
-    Route::get('/positions/create', [PositionController::class, 'create'])->name('positions.create');
-    Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
-    Route::get('/positions/{position}/edit', [PositionController::class, 'edit'])->name('positions.edit');
-    Route::put('/positions/{position}', [PositionController::class, 'update'])->name('positions.update');
-    Route::delete('/positions/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
-    Route::get('/positions/{position}/users', [PositionController::class, 'users'])->name('positions.users');
 
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/positions/create', [PositionController::class, 'create'])->name('positions.create');
+        Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
+        Route::get('/positions/{position}/edit', [PositionController::class, 'edit'])->name('positions.edit');
+        Route::put('/positions/{position}', [PositionController::class, 'update'])->name('positions.update');
+        Route::delete('/positions/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
+        Route::get('/positions/{position}/users', [PositionController::class, 'users'])->name('positions.users');
+    });
 });
-
 
 
 Auth::routes();

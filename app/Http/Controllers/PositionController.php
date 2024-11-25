@@ -17,10 +17,6 @@ class PositionController extends Controller
 
     public function create()
     {
-        if (!Gate::allows('manage-positions')) {
-            abort(403);
-        }
-
         return view('positions.create');
     }
 
@@ -30,38 +26,32 @@ class PositionController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        Position::create([
-            'name' => $request->name,
-        ]);
+        Position::create($request->all());
 
-        return redirect()->route('positions.index')->with('success', 'Position created successfully.');
+        return redirect()->route('positions.index')->with('success', 'Pozíció sikeresen létrehozva');
     }
 
     public function edit(Position $position)
     {
-        if (!Gate::allows('manage-positions')) {
-            abort(403);
-        }
-
         return view('positions.edit', compact('position'));
     }
 
     public function update(Request $request, Position $position)
     {
-        if (!Gate::allows('manage-positions')) {
-            abort(403);
-        }
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-        // Validáció és adatfrissítés
+        $position->update($request->all());
+
+        return redirect()->route('positions.index')->with('success', 'Pozíció sikeresen frissítve');
     }
 
     public function destroy(Position $position)
     {
-        if (!Gate::allows('manage-positions')) {
-            abort(403);
-        }
+        $position->delete();
 
-        // Munkakör törlése
+        return redirect()->route('positions.index')->with('success', 'Pozíció sikeresen törölve');
     }
 
     public function users(Position $position)
