@@ -21,8 +21,26 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('rooms', RoomController::class);
+Route::middleware('auth')->group(function () {
+    // Szobák listázása
+    Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
+    Route::get('/admin-test', function() {
+        if (auth()->user()->can('manage-rooms')) {
+            return 'X Can manage rooms';
+        } else {
+            return 'Y Cannot manage rooms';
+        }
+    });
+
+    // Csak admin számára elérhető útvonalak
+    Route::middleware('can:manage-rooms')->group(function () {
+        Route::get('/rooms/create', [RoomController::class, 'create'])->name('rooms.create');
+        Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
+        Route::get('/rooms/{room}/edit', [RoomController::class, 'edit'])->name('rooms.edit');
+        Route::put('/rooms/{room}', [RoomController::class, 'update'])->name('rooms.update');
+        Route::delete('/rooms/{room}', [RoomController::class, 'destroy'])->name('rooms.destroy');
+        Route::get('/rooms/{room}/access', [RoomController::class, 'access'])->name('rooms.access');
+    });
 });
 
 Auth::routes();

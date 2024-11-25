@@ -67,53 +67,59 @@
 </header>
 
 <!-- Main Section -->
-    <h1 class="ps-3">Rooms</h1>
-    <hr />
-    <div class="mt-4">
-        @can('manage-rooms')
-            <a class="btn btn-primary mb-4" href="{{ route('rooms.create') }}">Új szoba létrehozása</a>
-        @endcan
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead class="thead-light">
+    <div class="container">
+        <h1>Szobák</h1>
+
+        @if (auth()->user()->admin)
+            <div class="alert alert-success">Admin user</div>
+        @else
+            <div class="alert alert-danger">Not an admin user</div>
+        @endif
+
+        @if (auth()->user()->admin)
+            <a href="{{ route('rooms.create') }}" class="btn btn-primary mb-3">Új szoba létrehozása</a>
+        @endif
+
+        <table class="table table-striped mt-3">
+            <thead>
+            <tr>
+                <th>Név</th>
+                <th>Jogosult munkakörök</th>
+                @if (auth()->user()->admin)
+                    <th>Műveletek</th>
+                @endif
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($rooms as $room)
                 <tr>
-                    <th>Név</th>
-                    <th>Jogosult munkakörök</th>
-                    @can('manage-rooms')
-                        <th>Műveletek</th>
-                    @endcan
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($rooms as $room)
-                    <tr>
-                        <td>{{ $room->name }}</td>
+                    <td>{{ $room->name }}</td>
+                    <td>
+                        @if ($room->positions->isEmpty())
+                            <span>N/A</span>
+                        @else
+                            @foreach ($room->positions as $position)
+                                <div>{{ $position->name }}</div>
+                            @endforeach
+                        @endif
+                    </td>
+                    @if (auth()->user()->admin)
                         <td>
-                            <ul>
-                                @foreach($room->positions as $position)
-                                    <li>{{ $position->name }}</li>
-                                @endforeach
-                            </ul>
+                            <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning">Szerkesztés</a>
+                            <a href="{{ route('rooms.access', $room->id) }}" class="btn btn-info">Belépés napló</a>
+
+                            <form action="{{ route('rooms.destroy', $room->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Törlés</button>
+                            </form>
                         </td>
-                        @can('manage-rooms')
-                            <td>
-                                <a class="btn btn-secondary btn-sm" href="{{ route('rooms.edit', $room->id) }}">Szerkesztés</a>
-                                <form action="{{ route('rooms.destroy', $room->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
-                                </form>
-                                <a class="btn btn-info btn-sm" href="{{ route('rooms.show', $room->id) }}">Belépések</a>
-                            </td>
-                        @endcan
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-            {{ $rooms->links() }}
-        </div>
+                    @endif
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
-</div>
 
 <!-- Footer Section -->
 <footer class="footer bg-light text-center py-3 mt-4">
