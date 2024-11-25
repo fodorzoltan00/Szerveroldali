@@ -1,0 +1,13 @@
+{
+    "resources/sass/app.scss": {
+        "file": "assets/app-z-Rg4TxU.scss",
+        "src": "resources/sass/app.scss",
+        "isEntry": true
+    },
+  "resources/js/app.js": {
+    "file": "assets/app-z-Rg4TxU.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
