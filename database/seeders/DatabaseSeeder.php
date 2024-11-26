@@ -7,14 +7,10 @@ use App\Models\Position;
 use App\Models\Room;
 use App\Models\UserRoomEntry;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
 
@@ -22,6 +18,13 @@ class DatabaseSeeder extends Seeder
 
         $Positions = Position::factory(4)->create();
         $Rooms = Room::factory(5)->create();
+
+        User::factory()->create([
+            'email' => 'admin@szerveroldali.hu',
+            'password' => password_hash('adminpwd', PASSWORD_BCRYPT),
+            'admin' => true,
+            'position_id' => rand(0,4)
+        ]);
 
         $Users = collect();
         for($i = 0; $i < 10 ; $i++){
@@ -31,12 +34,6 @@ class DatabaseSeeder extends Seeder
             $Users->push($U);
         }
 
-        User::factory()->create([
-            'email' => 'admin@szerveroldali.hu',
-            'password' => password_hash('adminpwd', PASSWORD_BCRYPT),
-            'admin' => true,
-            'position_id' => 1
-        ]);
 
         foreach($Rooms as $Room){
                 $Room->positions()->attach($Positions->random(rand(0,4)));
@@ -44,22 +41,12 @@ class DatabaseSeeder extends Seeder
 
         $UserRoomEntry = collect();
 
-        for($i = 0; $i < rand(20,40) ; $i++){
+        for($i = 0; $i < rand(200,300) ; $i++){
             $entry = UserRoomEntry::factory(1)->create([
                 'room_id' => $Rooms->random()->id,
                 'user_id' => $Users->random()->id,
             ]);
             $UserRoomEntry->push($entry);
         }
-
-
-
-        //UserRoomEntry::factory(10)->create();
-
-
-        /*User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);*/
     }
 }
