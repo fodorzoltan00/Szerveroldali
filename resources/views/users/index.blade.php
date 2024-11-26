@@ -34,6 +34,7 @@
                         <div>{{ $user->phone_number }}</div>
                     </td>
                     <td>
+                        <a href="{{ route('users.room-entries', $user->id) }}" class="btn btn-info">Entry history</a>
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
                         <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
                             @csrf

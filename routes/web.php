@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/{user}/room-entries', [UserRoomEntryController::class, 'history'])->name('users.room-entries');
 });
 
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
@@ -58,3 +59,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/permissions', [PermissionController::class, 'index'])->middleware('auth')->name('permissions.index');
+Route::get('/my-room-entries', [UserRoomEntryController::class, 'myEntries'])->middleware('auth')->name('my.room-entries');

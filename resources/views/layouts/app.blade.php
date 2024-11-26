@@ -56,9 +56,12 @@
                         @else
 
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('my.room-entries') }}">My room entries</a>
+                            </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('permissions.index') }}">Jogosultságaim</a>
+                                <a class="nav-link" href="{{ route('permissions.index') }}">My permissions</a>
                             </li>
 
                             <li class="nav-item dropdown">
