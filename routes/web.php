@@ -10,8 +10,6 @@ use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-//Route::get('/room',[RoomController::class,'index'])->name('room');
-//Route::get('/position',[PositionController::class,'index'])->name('position');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -25,10 +23,8 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
 Route::middleware('auth')->group(function () {
-    // Szobák listázása
     Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
 
-    // Csak admin számára elérhető útvonalak
     Route::middleware(['auth'])->group(function () {
         Route::get('/rooms/create', [RoomController::class, 'create'])->name('rooms.create');
         Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Main Section -->
     <div class="container">
         <h1>Users</h1>
 
@@ -47,5 +46,4 @@
             </tbody>
         </table>
     </div>
-</main>
 @endsection
