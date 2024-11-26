@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{ $entry->created_at->format('Y-m-d H:i:s') }}</td>
                         <td>{{ $entry->user ? $entry->user->name : 'Unknown User' }}</td>
-                        <td>{{ $entry->status }}</td>
+                        <td>{{$entry->successful ? 'Room entry successful' : 'Room entry denied' }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -33,6 +33,6 @@
             </div>
         @endif
 
-        <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">Back to the rooms</a>
+        <a href="{{ route('rooms.index') }}" class="btn btn-secondary mb-3">Back to the rooms</a>
     </div>
 @endsection

@@ -31,6 +31,6 @@
             </div>
         @endif
 
-        <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Back</a>
     </div>
 @endsection

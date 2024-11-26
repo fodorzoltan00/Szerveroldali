@@ -25,6 +25,6 @@
             </table>
         @endif
 
-        <a href="{{ url()->previous() }}" class="btn btn-secondary">Back to the previous page</a>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Back to the previous page</a>
     </div>
 @endsection

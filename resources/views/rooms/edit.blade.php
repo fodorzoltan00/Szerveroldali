@@ -44,7 +44,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('rooms.index') }}" class="btn btn-secondary">Cancel</button>
+            <a href="{{ route('rooms.index') }}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 @endsection

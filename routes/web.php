@@ -60,3 +60,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/permissions', [PermissionController::class, 'index'])->middleware('auth')->name('permissions.index');
 Route::get('/my-room-entries', [UserRoomEntryController::class, 'myEntries'])->middleware('auth')->name('my.room-entries');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

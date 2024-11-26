@@ -12,7 +12,7 @@
 
         <form action="{{ route('rooms.access', $room->id) }}" method="POST">
             @csrf
-            <button type="submit" class="btn btn-primary">Belépés</button>
+            <button type="submit" class="btn btn-primary">Enter</button>
         </form>
     </div>
 @endsection
