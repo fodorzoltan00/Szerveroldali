@@ -17,6 +17,6 @@
 [x] Szoba törlése (1 pont)
 [x] Szobába belépések történeket (2 pont)
 [ ] Belépés szimuláció (4 pont)
-[ ] Jogosultságaim - hova léphetek be (2 pont)
+[x] Jogosultságaim - hova léphetek be (2 pont)
 [ ] Belépéseim története (2 pont)
 [ ] Védés (4 pont)
