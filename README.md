@@ -10,7 +10,7 @@
 [x] Új munkakör létrehozása (2 pont)
 [x] Munkakör módosítása (2 pont)
 [x] Munkakör törlése (1 pont)
-[ ] Munkakörbe tartozó dolgozók (2 pont)
+[x] Munkakörbe tartozó dolgozók (2 pont)
 [x] Szobák listázása (2 pont)
 [x] Új szoba létrehozása (3 pont)
 [x] Szoba módosítása (3 pont)

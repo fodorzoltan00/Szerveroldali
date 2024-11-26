@@ -56,7 +56,8 @@ class PositionController extends Controller
 
     public function users(Position $position)
     {
-        $users = $position->users();
-        return view('positions.users', compact('users', 'position'));
+        $users = $position->users()->get();
+
+        return view('positions.users', compact('position', 'users'));
     }
 }
