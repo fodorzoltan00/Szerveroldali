@@ -1,27 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Main Section -->
+    <!-- Main Section -->
     <div class="container">
-        <h1>Szobák</h1>
+        <h1>Rooms</h1>
 
         @if (auth()->user()->admin)
-            <div class="alert alert-success">Admin user</div>
-        @else
-            <div class="alert alert-danger">Not an admin user</div>
-        @endif
-
-        @if (auth()->user()->admin)
-            <a href="{{ route('rooms.create') }}" class="btn btn-primary mb-3">Új szoba létrehozása</a>
+            <a href="{{ route('rooms.create') }}" class="btn btn-primary mb-3">Create new room</a>
         @endif
 
         <table class="table table-striped mt-3">
             <thead>
             <tr>
-                <th>Név</th>
-                <th>Jogosult munkakörök</th>
+                <th>Room name</th>
+                <th>Allowed positions</th>
                 @if (auth()->user()->admin)
-                    <th>Műveletek</th>
+                    <th>Options</th>
                 @endif
             </tr>
             </thead>
@@ -40,13 +34,12 @@
                     </td>
                     @if (auth()->user()->admin)
                         <td>
-                            <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning">Szerkesztés</a>
-                            <a href="{{ route('rooms.access', $room->id) }}" class="btn btn-info">Belépés napló</a>
-
+                            <a href="{{ route('rooms.history', $room->id) }}" class="btn btn-info">Entry history</a>
+                            <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('rooms.destroy', $room->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Törlés</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     @endif

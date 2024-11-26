@@ -23,12 +23,12 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'required|string|max:255|unique:positions,name',
         ]);
 
         Position::create($request->all());
 
-        return redirect()->route('positions.index')->with('success', 'Pozíció sikeresen létrehozva');
+        return redirect()->route('positions.index')->with('success', 'Position created successfully.');
     }
 
     public function edit(Position $position)
@@ -39,19 +39,19 @@ class PositionController extends Controller
     public function update(Request $request, Position $position)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'required|string|max:255|unique:positions,name',
         ]);
 
         $position->update($request->all());
 
-        return redirect()->route('positions.index')->with('success', 'Pozíció sikeresen frissítve');
+        return redirect()->route('positions.index')->with('success', 'Position updated successfully.');
     }
 
     public function destroy(Position $position)
     {
         $position->delete();
 
-        return redirect()->route('positions.index')->with('success', 'Pozíció sikeresen törölve');
+        return redirect()->route('positions.index')->with('success', 'Position deleted successfully');
     }
 
     public function users(Position $position)

@@ -10,7 +10,7 @@ class Room extends Model
     /** @use HasFactory<\Database\Factories\RoomFactory> */
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description', 'image'];
 
     public function userRoomEntries()
     {

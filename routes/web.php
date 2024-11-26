@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserRoomEntryController;
+use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -33,7 +35,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/rooms/{room}/edit', [RoomController::class, 'edit'])->name('rooms.edit');
         Route::put('/rooms/{room}', [RoomController::class, 'update'])->name('rooms.update');
         Route::delete('/rooms/{room}', [RoomController::class, 'destroy'])->name('rooms.destroy');
-        Route::get('/rooms/{room}/access', [RoomController::class, 'access'])->name('rooms.access');
+        Route::post('rooms/{room}/access', [RoomController::class, 'accessRoom'])->middleware('auth')->name('rooms.access');
+        Route::get('rooms/{room}/history', [RoomController::class, 'roomHistory'])->middleware('auth')->name('rooms.history');
     });
 });
 
@@ -52,7 +55,10 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::get('user_room_entries', [UserRoomEntryController::class, 'index'])->middleware('auth')->name('user_room_entries.index');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/permissions', [PermissionController::class, 'index'])->middleware('auth')->name('permissions.index');

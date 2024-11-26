@@ -4,6 +4,11 @@
 <!-- Main Section -->
     <div class="container">
         <h1>Users</h1>
+
+        @if (auth()->user()->admin)
+            <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Add new user</a>
+        @endif
+
         <table class="table table-striped mt-3">
             <thead>
             <tr>
@@ -20,14 +25,16 @@
                         <span>{{ $user->name }}</span>
                     </td>
                     <td>
-                        <div>{{ $user->position->name }}</div>
+                        @if ($user->position)
+                            <div>{{ $user->position->name }}</div>
+                        @else
+                            <div>No Position</div>
+                        @endif
                     </td>
                     <td>
                         <div>{{ $user->phone_number }}</div>
                     </td>
                     <td>
-                        <!-- Add action buttons as needed -->
-                        <!-- Example: Edit User -->
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
                         <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
                             @csrf

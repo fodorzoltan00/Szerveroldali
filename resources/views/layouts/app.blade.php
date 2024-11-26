@@ -32,7 +32,7 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users.index') }}">Workers</a>
+                            <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('positions.index') }}">Positions</a>
@@ -62,6 +62,9 @@
 
 
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('permissions.index') }}">Jogosultságaim</a>
+                            </li>
 
                             <li class="nav-item dropdown">
 

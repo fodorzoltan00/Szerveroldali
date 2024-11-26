@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Pozíció szerkesztése</h1>
+        <h1>Edit Position</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">

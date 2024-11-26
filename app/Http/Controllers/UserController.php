@@ -27,7 +27,12 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'position_id' => 'nullable|exists:positions,id',
             'phone_number' => 'nullable|string|max:255',
-            'card_number' => 'nullable|string|max:255',
+            'card_number' => [
+                'nullable',
+                'string',
+                'size:16',
+                'regex:/^[0-9a-zA-Z]{16}$/'
+            ],
         ]);
 
         $user = User::create([
@@ -55,13 +60,27 @@ class UserController extends Controller
     }
     public function update(Request $request, User $user)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
             'position_id' => 'nullable|exists:positions,id',
-            'phone_number' => 'nullable|string|max:255',
+            'phone_number' => 'nullable|string',
+            'card_number' => [
+                'nullable',
+                'string',
+                'size:16',
+                'regex:/^[0-9a-zA-Z]{16}$/'
+            ],
         ]);
 
-        $user->update($request->all());
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }

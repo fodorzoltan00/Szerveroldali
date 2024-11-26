@@ -4,26 +4,20 @@
 @section('content')
     <main class="container">
         <div class="container">
-            <h1>Pozíciók</h1>
-
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+            <h1>Positions</h1>
 
             @if (auth()->user()->admin)
-                <a href="{{ route('positions.create') }}" class="btn btn-primary mb-3">Új pozíció létrehozása</a>
+                <a href="{{ route('positions.create') }}" class="btn btn-primary mb-3">Create new position</a>
             @endif
 
             <table class="table table-striped mt-3">
                 <thead>
                 <tr>
-                    <th>Név</th>
-                    <th>Felhasználók száma</th>
-                    <th>Szobák</th>
+                    <th>Position name</th>
+                    <th>Usercount</th>
+                    <th>Can access the following rooms</th>
                     @if (auth()->user()->admin)
-                        <th>Műveletek</th>
+                        <th>Options</th>
                     @endif
                 </tr>
                 </thead>
@@ -34,17 +28,17 @@
                         <td>{{ $position->users_count }}</td>
                         <td>
                             @foreach ($position->rooms as $room)
-                                <span class="badge badge-info">{{ $room->name }}</span>
+                                <span class="badge badge-info" style="color: black">{{ $room->name }}</span>
                             @endforeach
                         </td>
                         <td>
-                            <a href="{{ route('positions.users', $position->id) }}" class="btn btn-info">Felhasználók megtekintése</a>
+                            <a href="{{ route('positions.users', $position->id) }}" class="btn btn-info">Display Users</a>
                             @if (auth()->user()->admin)
-                                <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-warning">Szerkesztés</a>
+                                <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('positions.destroy', $position->id) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Törlés</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             @endif
                         </td>
