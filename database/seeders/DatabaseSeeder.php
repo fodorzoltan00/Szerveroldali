@@ -19,20 +19,22 @@ class DatabaseSeeder extends Seeder
         $Positions = Position::factory(4)->create();
         $Rooms = Room::factory(5)->create();
 
-        User::factory()->create([
+
+
+        $Users = collect();
+        $Users->push(User::factory()->create([
             'email' => 'admin@szerveroldali.hu',
             'password' => password_hash('adminpwd', PASSWORD_BCRYPT),
             'admin' => true,
             'position_id' => rand(0,4)
-        ]);
-
-        $Users = collect();
+        ]));
         for($i = 0; $i < 10 ; $i++){
             $U = User::factory()->create([
                 'position_id' => $Positions->random()->id,
             ]);
             $Users->push($U);
         }
+
 
 
         foreach($Rooms as $Room){

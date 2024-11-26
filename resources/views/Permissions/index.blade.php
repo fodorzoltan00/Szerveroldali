@@ -27,7 +27,7 @@
                 <tbody>
                 @foreach ($rooms as $room)
                     <tr>
-                        <td><img src="{{ asset('storage/' . $room->image) }}" alt="{{ $room->name }}" style="width: 100px;"></td>
+                        <td><img src="{{ $room->image }}" alt="{{ $room->name }}" style="width: 100px;"></td>
                         <td>{{ $room->name }}</td>
                         <td>{{ $room->description }}</td>
                     </tr>
