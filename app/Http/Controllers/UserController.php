@@ -48,7 +48,6 @@ class UserController extends Controller
     }
     public function show(User $user)
     {
-        // A felhasználó és a kapcsolódó pozíciójának betöltése azonosító alapján
         $user->load('position');
         return view('users.show', compact('user'));
     }
